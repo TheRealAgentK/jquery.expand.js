@@ -3,9 +3,12 @@ expandAll v.1.3.8.3
 http://github.com/TheRealAgentK/jquery.expand.js
 (forked from http://www.adipalaz.com/experiments/jquery/expand.html)
 
+
 Requires: jQuery v1.3+
 Copyright (c) 2009 Adriana Palazova
-Dual licensed under the MIT (http://www.adipalaz.com/docs/mit-license.txt) and GPL (http://www.adipalaz.com/docs/gpl-license.txt) licenses
+Copyright (c) 2012 Kai Koenig
+
+Dual licensed under the MIT and GPL licenses as provided in the repository: http://github.com/TheRealAgentK/jquery.expand.js
 ------------------------------------------------ */
 (function($) {
 $.fn.expandAll = function(options) {
