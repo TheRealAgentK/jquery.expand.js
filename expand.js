@@ -1,6 +1,8 @@
 /* ---------------------------------------------
-expandAll v.1.3.8.2
-http://www.adipalaz.com/experiments/jquery/expand.html
+expandAll v.1.3.8.3
+http://github.com/TheRealAgentK/jquery.expand.js
+(forked from http://www.adipalaz.com/experiments/jquery/expand.html)
+
 Requires: jQuery v1.3+
 Copyright (c) 2009 Adriana Palazova
 Dual licensed under the MIT (http://www.adipalaz.com/docs/mit-license.txt) and GPL (http://www.adipalaz.com/docs/gpl-license.txt) licenses
@@ -36,11 +38,11 @@ $.fn.expandAll = function(options) {
           $$.find(o.cllpsEl).show().findSibling().find('> a').addClass('open').data('state', 1); 
         }
         
-        (o.oneSwitch) ? ($referent.insrt('<p class="switch"><a href="#" class="' + toggleClass + '">' + toggleTxt + '</a></p>')) :
-          ($referent.insrt('<p class="switch"><a href="#" class="">' + o.expTxt + '</a>&nbsp;|&nbsp;<a href="#" class="open">' + o.cllpsTxt + '</a></p>'));
+        (o.oneSwitch) ? ($referent.insrt('<' + o.switchEl +' class="' + o.switchCls + '"><a href="#" class="' + toggleClass + '">' + toggleTxt + '</a></' + o.switchEl +'>')) :
+          ($referent.insrt('<' + o.switchEl +' class="' + o.switchCls + '"><a href="#" class="">' + o.expTxt + '</a>&nbsp;|&nbsp;<a href="#" class="open">' + o.cllpsTxt + '</a></' + o.switchEl +'>'));
 
         // --- var $sw, $cllps, $tr :
-        $sw = $referent.findSibling('p').find('a');
+        $sw = $referent.findSibling(o.switchEl).find('a');
         $cllps = $$.closest(container).find(o.cllpsEl).not('.dont_touch');
         $tr = (o.trigger) ? $$.closest(container).find(o.trigger + ' > a') : $$.closest(container).find('.expand > a');
                 
@@ -53,11 +55,11 @@ $.fn.expandAll = function(options) {
         (typeof scrollableElement == 'function') ? (scrollElem = scrollableElement('html', 'body')) : (scrollElem = 'html, body');
         
         $sw.click(function() {
-            var $switch = $(this),
-                $c = $switch.closest(container).find(o.cllpsEl +':first'),
-                cOffset = $c.offset().top - o.offset;
+            var $switch = $(this);
+            var $c = $switch.closest(container).find(o.cllpsEl +':first');
+            var cOffset = $c.offset().top - o.offset;
             if (o.parent) {
-              var $swChildren = $switch.parent().nextAll().children('p.switch').find('a');
+              var $swChildren = $switch.parent().nextAll().children(o.switchEl + '.' + o.switchCls).find('a');
                   kidTxt1 = $vrbls.kt1, kidTxt2 = $vrbls.kt2,
                   kidTxt = ($switch.text() == o.expTxt) ? kidTxt2 : kidTxt1;
               $swChildren.text(kidTxt);
@@ -135,7 +137,9 @@ $.fn.expandAll.defaults = {
         parent : false, // true, false
         child : false, // true, false
         cllpsLength : null, //null, {Number}. If {Number} (e.g. cllpsLength: 200) - if the number of characters inside the "collapsible element" is less than the given {Number}, the element will be visible all the time
-        instantHide : false // {true} fixes hiding content inside hidden elements
+        instantHide : false,  // {true} fixes hiding content inside hidden elements
+        switchEl : 'p', // the html element that wraps the switch link
+        switchCls : 'switch' // the class switchEl gets assigned
 };
 
 /* ---------------------------------------------
