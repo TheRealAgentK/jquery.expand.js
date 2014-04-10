@@ -1,10 +1,10 @@
 /* ---------------------------------------------
-expandAll v.1.3.8.3
+expandAll v.1.4
 http://github.com/TheRealAgentK/jquery.expand.js
 (forked from http://www.adipalaz.com/experiments/jquery/expand.html)
 
 
-Requires: jQuery v1.3+
+Requires: jQuery v1.9+
 Copyright (c) 2009 Adriana Palazova
 Copyright (c) 2012 Kai Koenig
 
@@ -27,7 +27,7 @@ $.fn.expandAll = function(options) {
         
         // --- var $referent
         if (o.ref && $$.find(o.ref).length) {
-          (o.switchPosition == 'before') ? $referent = $$.find("'" + o.ref + ":first'") : $referent = $$.find("'" + o.ref + ":last'");
+          (o.switchPosition == 'before') ? $referent = $$.find(o.ref).filter(':first') : $referent = $$.find(o.ref).filter(':last');
         } else { return; }
         
         // end the script if the length of the collapsible element isn't long enough.  
