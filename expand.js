@@ -40,10 +40,10 @@ $.fn.expandAll = function(options) {
         } else {
           $$.find(o.cllpsEl).show().findSibling().find('> a').addClass('open').data('state', 1); 
         }
-        
-        (o.oneSwitch) ? ($referent.insrt('<' + o.switchEl +' class="' + o.switchCls + '"><a href="#" class="' + toggleClass + '">' + toggleTxt + '</a></' + o.switchEl +'>')) :
-          ($referent.insrt('<' + o.switchEl +' class="' + o.switchCls + '"><a href="#" class="">' + o.expTxt + '</a>&nbsp;|&nbsp;<a href="#" class="open">' + o.cllpsTxt + '</a></' + o.switchEl +'>'));
 
+	    (o.oneSwitch) ? ($referent.insrt('<' + o.switchEl +' class="' + o.switchCls + '"><a href="#" class="' + o.switchLinkClsCllps + ' ' + toggleClass + '">' + toggleTxt + '</a></' + o.switchEl +'>')) :
+          ($referent.insrt('<' + o.switchEl +' class="' + o.switchCls + '"><a href="#" class="' + o.switchLinkClsCllps + '">' + o.expTxt + '</a>&nbsp;|&nbsp;<a href="#" class="open ' + o.switchLinkClsExp + '">' + o.cllpsTxt + '</a></' + o.switchEl +'>'));
+ 
         // --- var $sw, $cllps, $tr :
         $sw = $referent.findSibling(o.switchEl).find('a');
         $cllps = $$.closest(container).find(o.cllpsEl).not('.dont_touch');
@@ -69,11 +69,11 @@ $.fn.expandAll = function(options) {
               if ($switch.text() == o.expTxt) {$swChildren.addClass('open');} else {$swChildren.removeClass('open');}
             }
             if ($switch.text() == o.expTxt) {
-              if (o.oneSwitch) {$switch.text(o.cllpsTxt).attr('class', 'open');}
+              if (o.oneSwitch) {$switch.text(o.cllpsTxt).attr('class', 'open ' + o.switchLinkClsExp);}
               $tr.addClass('open').data('state', 1);
               $cllps[o.showMethod](o.speed);
             } else {
-              if (o.oneSwitch) {$switch.text(o.expTxt).attr('class', '');}
+              if (o.oneSwitch) {$switch.text(o.expTxt).attr('class', o.switchLinkClsCllps);}
               $tr.removeClass('open').data('state', 0);
               if (o.speed == 0 || o.instantHide) {$cllps.hide();} else {$cllps[o.hideMethod](o.speed);}
               if (o.scroll && cOffset < $(window).scrollTop()) {$(scrollElem).animate({scrollTop: cOffset},600);}
@@ -142,7 +142,9 @@ $.fn.expandAll.defaults = {
         cllpsLength : null, //null, {Number}. If {Number} (e.g. cllpsLength: 200) - if the number of characters inside the "collapsible element" is less than the given {Number}, the element will be visible all the time
         instantHide : false,  // {true} fixes hiding content inside hidden elements
         switchEl : 'p', // the html element that wraps the switch link
-        switchCls : 'switch' // the class switchEl gets assigned
+        switchCls : 'switch', // the class switchEl gets assigned
+        switchLinkClsCllps : '', // the class the <a> element inside the switch link wrapper gets assigned when the content is collapsed
+        switchLinkClsExp : '' // the class the <a> element inside the switch link wrapper gets assigned when the content is expanded
 };
 
 /* ---------------------------------------------
